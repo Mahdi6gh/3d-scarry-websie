@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNMASKED — Costume Co.</title>
+<meta name="description" content="UNMASKED Costume Co. — every monster is just someone in a great costume. Halloween costumes and horror cosplay since 1969.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Creepster&family=Special+Elite&family=Space+Grotesk:wght@400;500;700&family=Vazirmatn:wght@400;600;800&family=Lalezar&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="lang-switch big">
+    <button class="lang-btn" data-lang="en">English</button>
+    <button class="lang-btn" data-lang="fa">فارسی</button>
+  </div>
+  <div class="ld-eyes"><span></span><span></span></div>
+  <div class="ld-brand">UNMASKED<small data-i18n="ld_small">Costume Co. · est. 1969</small></div>
+  <div class="ld-bar"><i id="ldFill"></i></div>
+  <div class="ld-msg" id="ldMsg">…</div>
+  <button class="ld-enter" id="enterBtn" disabled>
+    <span data-i18n="ld_enter">Enter</span><em data-i18n="ld_dare">if you dare</em>
+  </button>
+  <p class="ld-hint" data-i18n="ld_hint">🎧 Sound on · headphones recommended · move your flashlight with the cursor</p>
+</div>
+
+<canvas id="webgl"></canvas>
+<div class="fogfx" id="fogfx"><i></i><i></i><i></i></div>
+<div class="grain"></div>
+<div class="scanlines" id="scan"></div>
+<div id="scareFlash"></div>
+<div id="bubbles"></div>
+<div id="cursor"><i></i></div>
+
+<!-- ============ FIXED CHROME ============ -->
+<div class="gridlines"><i></i><i></i><i></i><i></i></div>
+
+<header class="topbar">
+  <a class="logo" href="#top" data-ui aria-label="Unmasked home">
+    <span class="logo-eyes"><b></b><b></b></span>
+  </a>
+  <nav class="nav">
+    <a href="#catalog" data-cat="ghosts" data-ui data-i18n="nav_ghosts">GHOSTS</a>
+    <a href="#catalog" data-cat="ghouls" data-ui data-i18n="nav_ghouls">GHOULS</a>
+    <a href="#catalog" data-cat="gameover" data-ui data-i18n="nav_gameover">GAME OVER</a>
+    <a href="#catalog" data-cat="gang" data-ui data-i18n="nav_gang">THE GANG</a>
+  </nav>
+  <div class="top-right">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" data-ui>EN</button>
+      <button class="lang-btn" data-lang="fa" data-ui>فا</button>
+    </div>
+    <button class="burger" id="cartBtn" data-ui aria-label="Open item box">
+      <span class="burger-lines"><i></i><i></i><i></i></span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<aside class="socials">
+  <a href="#" data-ui data-i18n="soc_fb">Facebook</a><a href="#" data-ui data-i18n="soc_ig">Instagram</a><a href="#" data-ui data-i18n="soc_tt">TikTok</a>
+</aside>
+
+<div class="hud">
+  <div class="hud-ecg" id="ecg" title="Condition">
+    <svg viewBox="0 0 120 30"><polyline points="0,15 20,15 26,15 30,4 35,26 40,15 60,15 66,15 70,4 75,26 80,15 120,15"/></svg>
+    <span id="ecgTxt">FINE</span>
+  </div>
+  <button class="hud-btn" id="snackBtn" data-ui title="Biscuits">
+    <svg viewBox="0 0 40 20"><path d="M6 4a4 4 0 0 1 6 2h16a4 4 0 1 1 6 4 4 4 0 1 1-6 4H12a4 4 0 1 1-6-4 4 4 0 0 1 0-6z"/></svg>
+    <span id="snackCount">0/7</span>
+  </button>
+  <button class="hud-btn" id="clueBtn" data-ui title="Clues">
+    <svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M15 15l6 6" stroke="currentColor" stroke-width="3"/></svg>
+    <span id="clueCount">0/15</span>
+  </button>
+  <button class="hud-btn" id="scareBtn" data-ui title="Jump scares">SCARES · ON</button>
+  <button class="hud-btn" id="soundBtn" data-ui title="Sound">
+    <span class="eq"><i></i><i></i><i></i><i></i></span>
+  </button>
+</div>
+
+<div class="progress"><i id="progFill"></i><span id="zoneName">THE GROUNDS</span></div>
+
+<!-- ============ SCROLL STORY ============ -->
+<main id="top">
+
+  <section class="sec hero">
+    <h1 class="hero-title"><span class="outline" data-split data-i18n="hero_title">UNMASK</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Every monster is just someone in a <em>really</em> good costume.</p>
+    <div class="hero-bottom">
+      <div class="hb-left" data-i18n="hb_left">Get spooky<br>with your cursor<i></i></div>
+      <a class="hb-num" href="#catalog" data-cat="ghosts" data-ui>01</a>
+      <a class="hb-num" href="#catalog" data-cat="ghouls" data-ui>02</a>
+      <a class="hb-num" href="#catalog" data-cat="gameover" data-ui>03</a>
+      <a class="hb-num" href="#catalog" data-cat="gang" data-ui>04</a>
+    </div>
+    <div class="scroll-cue"><span data-i18n="cue">scroll to approach the house</span><i></i></div>
+  </section>
+
+  <section class="sec legend">
+    <div class="case-file" data-ui>
+      <div class="cf-stamp" data-i18n="cf_stamp">CASE FILE #312 · CLOSED</div>
+      <h2 class="h-creep" data-i18n="cf_title">The Legend of <span>Unmasked</span></h2>
+      <p data-i18n="cf_p1">In <b>1969</b>, four meddling kids and one extremely cowardly Great Dane named <b>Biscuit</b> drove a painted bus called <b>The Clue Bus</b> into a town with a ghost problem.</p>
+      <p data-i18n="cf_p2">They solved it. Then they solved <b>311 more</b>. Phantoms, swamp witches, space skeletons, a mummy with a mortgage.</p>
+      <p data-i18n="cf_p3">Every single monster turned out to be <i>someone in a costume.</i> And the costumes were… honestly? <b>Incredible.</b> So the gang kept them.</p>
+      <p class="cf-sign" data-i18n="cf_p4">Today we sell them — tailored, battle-tested, and guaranteed to make at least one Great Dane jump into somebody's arms.</p>
+      <div class="cf-gang">
+        <div data-i18n="g_max"><b>MAX</b><span>the plan</span></div>
+        <div data-i18n="g_dot"><b>DOT</b><span>the brains</span></div>
+        <div data-i18n="g_riley"><b>RILEY</b><span>the style</span></div>
+        <div data-i18n="g_bo"><b>BO</b><span>the appetite</span></div>
+        <div data-i18n="g_biscuit"><b>BISCUIT</b><span>the courage (none)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec door">
+    <div class="door-copy">
+      <h2 class="h-giant outline" data-split data-i18n="knock1">KNOCK</h2>
+      <h2 class="h-giant fill" data-split data-i18n="knock2">KNOCK.</h2>
+      <p class="reveal" data-i18n="door_p">The door is unlocked. It always is. Scroll to step inside.</p>
+      <button class="btn-ghost reveal" id="knockBtn" data-ui data-i18n="knock_btn">Use the knocker</button>
+    </div>
+  </section>
+
+  <section class="sec hall">
+    <div class="side-card reveal">
+      <span class="kicker" data-i18n="hall_k">03 — the hallway of doors</span>
+      <h2 class="h-creep" data-i18n="hall_h">Ruh-oh.</h2>
+      <p data-i18n="hall_p">Something is chasing Biscuit. Something is also chasing <i>that</i>. Doors open. Doors close. Nobody comes out of the door they went into.</p>
+      <p class="tiny" data-i18n="hall_tip">Tip: every character, door and creature has a <b>hitbox</b> — click them to collect clues. There are also <b>7 glowing biscuits</b> hidden in the house — find them for a secret discount.</p>
+    </div>
+  </section>
+
+  <section class="sec gallery">
+    <div class="side-card right reveal">
+      <span class="kicker" data-i18n="gal_k">04 — the costume gallery</span>
+      <h2 class="h-creep" data-i18n="gal_h">Use your flashlight.</h2>
+      <p data-i18n="gal_p">Twelve unmasked villains rest on their pedestals. Sweep the beam with your cursor and <b>click a costume</b> to inspect it in 3D.</p>
+      <p class="tiny warn" data-i18n="gal_w">Don't linger in the dark corners. Not all of them are empty.</p>
+    </div>
+  </section>
+
+  <section class="sec catalog" id="catalog">
+    <div class="cat-wrap" data-ui>
+      <div class="cat-head">
+        <div>
+          <span class="kicker" data-i18n="cat_k">05 — the item box</span>
+          <h2 class="h-giant fill small" data-i18n="cat_h">THE COLLECTION</h2>
+        </div>
+        <div class="filters" id="filters">
+          <button data-f="all" class="on" data-ui data-i18n="f_all">All</button>
+          <button data-f="ghosts" data-ui data-i18n="f_ghosts">01 Ghosts</button>
+          <button data-f="ghouls" data-ui data-i18n="f_ghouls">02 Ghouls</button>
+          <button data-f="gameover" data-ui data-i18n="f_gameover">03 Game Over</button>
+          <button data-f="gang" data-ui data-i18n="f_gang">04 The Gang</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="sec safe">
+    <div class="safe-card reveal" data-ui>
+      <span class="kicker" data-i18n="safe_k">06 — the safe room</span>
+      <p class="type-line" id="safeLine" data-i18n="safe_line">You hear a soothing melody. There is a typewriter here.</p>
+      <h2 class="h-type" data-i18n="safe_h">Will you save your order?</h2>
+      <div class="safe-actions">
+        <button class="btn-solid" id="saveBtn" data-ui data-i18n="safe_b1">Use the typewriter</button>
+        <button class="btn-ghost" id="boxBtn" data-ui data-i18n="safe_b2">Open item box</button>
+      </div>
+      <p class="tiny"><span data-i18n="safe_ink">Ink ribbons:</span> <b id="ribbons">3</b> <span data-i18n="safe_herb">· Green herbs: complimentary</span></p>
+    </div>
+  </section>
+
+  <section class="sec fog">
+    <div class="fog-copy">
+      <p class="fog-letter reveal" data-i18n="fog_letter">"In my restless dreams, I see that store…"</p>
+      <h2 class="h-giant outline" data-split data-i18n="fog_h1">SILENT</h2>
+      <h2 class="h-giant fill" data-split data-i18n="fog_h2">HOLLOW</h2>
+      <p class="reveal" data-i18n="fog_p">The siren means the sale is starting. The fog is part of the experience. The tall gentleman with the helmet is <b>also for sale</b> (the helmet, not the gentleman).</p>
+      <button class="btn-ghost reveal" data-cat-go="gameover" data-ui data-i18n="fog_btn">Shop Game Over cosplay</button>
+    </div>
+  </section>
+
+  <section class="sec finale">
+    <div class="finale-copy">
+      <span class="kicker" data-i18n="fin_k">08 — the unmasking</span>
+      <h2 class="h-creep big" id="finaleQ" data-i18n="fin_q">Let's see who this phantom <i>really</i> is…</h2>
+      <div class="reveal-box" id="revealBox">
+        <h2 class="h-giant fill small" data-i18n="fin_h">OLD MR. HOLLOWAY!</h2>
+        <p class="quote" data-i18n="fin_quote">"…and I would've gotten away with it, too, if it weren't for you meddling kids!"</p>
+        <p data-i18n="fin_p">The shopkeeper. All along. He just really, <i>really</i> wanted you to try something on.</p>
+        <a href="#catalog" class="btn-solid" data-ui data-cat="all" data-i18n="fin_cta">Get unmasked — shop now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec foot">
+    <div class="foot-wrap" data-ui>
+      <div class="marquee"><div class="mq-track" id="mq"></div></div>
+      <div class="foot-grid">
+        <div>
+          <div class="ld-brand left">UNMASKED<small data-i18n="ld_small">Costume Co. · est. 1969</small></div>
+          <p class="tiny" data-i18n="foot_note">Fictional demo brand. All characters are original homages; all music & sounds are synthesized live in your browser (public-domain melodies by Bach, Grieg and original compositions).</p>
+        </div>
+        <form class="news" id="newsForm">
+          <label data-i18n="news_l">Join the Mystery Club</label>
+          <div><input type="email" placeholder="you@haunted.house" required><button class="btn-solid" data-ui data-i18n="news_b">Join</button></div>
+          <small data-i18n="news_s">Get a biscuit every Friday the 13th.</small>
+        </form>
+        <ul class="foot-links">
+          <li data-i18n="fl1">Shipping before midnight Oct 31</li>
+          <li data-i18n="fl2">Free returns (if you survive)</li>
+          <li data-i18n="fl3">Size guide for ghosts</li>
+          <li data-i18n="fl4">© 1969–2026 Unmasked Costume Co.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PRODUCT MODAL ============ -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card" data-ui>
+    <button class="x" data-close aria-label="Close">✕</button>
+    <div class="modal-view" id="modalView"><span class="drag-hint" data-i18n="drag">drag to rotate</span></div>
+    <div class="modal-info">
+      <span class="kicker" id="mCat"></span>
+      <h3 id="mName"></h3>
+      <div class="m-price" id="mPrice"></div>
+      <p id="mDesc"></p>
+      <div class="m-culprit"><b data-i18n="m_unmasked">UNMASKED:</b> <span id="mCulprit"></span></div>
+      <div class="sizes" id="mSizes"></div>
+      <button class="btn-solid wide" id="mAdd" data-i18n="m_add">Add to item box</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ITEM BOX ============ -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="modal-bg" data-close-cart></div>
+  <div class="drawer-card" data-ui>
+    <button class="x" data-close-cart aria-label="Close">✕</button>
+    <h3 class="h-type" data-i18n="box_h">ITEM BOX</h3>
+    <div class="slots" id="slots"></div>
+    <div class="cart-sum">
+      <div><span data-i18n="sub_l">Subtotal</span><b id="subT">$0</b></div>
+      <div id="discRow" class="hidden"><span data-i18n="disc_l">Biscuit discount (MEDDLINGKIDS)</span><b id="discT">-$0</b></div>
+      <div class="tot"><span data-i18n="tot_l">Total</span><b id="totT">$0</b></div>
+    </div>
+    <button class="btn-solid wide" id="checkoutBtn" data-i18n="checkout">Save order at typewriter</button>
+  </div>
+</div>
+
+<!-- ============ SAVE (CHECKOUT) ============ -->
+<div class="save" id="save" aria-hidden="true">
+  <div class="save-inner" data-ui>
+    <div class="save-text" id="saveText"></div>
+    <div class="save-choices" id="saveChoices">
+      <button id="saveYes" data-i18n="yes">YES</button><button id="saveNo" data-i18n="no">NO</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/Pass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/models.js"></script>
+<script src="js/products.js"></script>
+<script src="js/world.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
